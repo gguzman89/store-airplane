@@ -1,0 +1,15 @@
+.env
+
+node_modules/
+dist/
+build/
+coverage/
+partials/
+emails/
+/prisma
+
+.vscode/
+
+.docker/
+
+*.sql
