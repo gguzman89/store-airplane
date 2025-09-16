@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// snake_case
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("posts")
+}
+
+model Profile {
+  id     Int    @id @default(autoincrement())
+  bio    String?
+  userId Int    @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("profiles")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String?
+  posts    Post[]
+  profile  Profile?
+
+  @@map("users")
+}
+
+model Stock {
+  id         Int      @id @default(autoincrement())
+  empresa    Int      // @relation(fields: [empresaId], references: [id])
+  sucursal   Int      // @relation(fields: [sucursalId], references: [id])
+  articulo   Int      // @relation(fields: [articuloId], references: [id])
+  cantidad   Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("stocks")
+}
+
+model Reserva {
+  id         Int      @id @default(autoincrement())
+  empresa    Int
+  sucursal   Int
+  articulo   Int
+  cantidad   Int
+  estado     EstadoReserva   @default(PENDIENTE)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("reservas")
+}
+
+enum EstadoReserva {
+  PENDIENTE
+  COMPLETADA
+  CANCELADA
+
+  @@map("EstadosReserva")
+}
+
+model movimiento {
+  id          Int      @id @default(autoincrement())
+  empresa     Int
+  sucursal    Int
+  articulo    Int
+  cantidad    Int
+  descripcion String?
+  categoria   TipoCategoria
+  comentario  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("movimientos")
+} 
+
+enum TipoCategoria {
+  MERCADERIA
+  ANULACION
+  VENTAS
+
+	@@map("Categorias")
+}

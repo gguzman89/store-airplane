@@ -1,15 +1,25 @@
+
+# environment
 .env
 
+# dependencies
 node_modules/
+
+# Build
 dist/
 build/
 coverage/
 partials/
 emails/
-/prisma
 
 .vscode/
-
 .docker/
 
-*.sql
+*.sh
+
+# Prisma
+generated/
+airline.*.sql
+airline.sql
+query.*.sql
+world.sql
