@@ -54,6 +54,7 @@ model Stock {
   sucursal   Int      // @relation(fields: [sucursalId], references: [id])
   articulo   Int      // @relation(fields: [articuloId], references: [id])
   cantidad   Int
+  reservas   Reserva[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
@@ -66,6 +67,8 @@ model Reserva {
   sucursal   Int
   articulo   Int
   cantidad   Int
+  stockId    Int
+  stock      Stock     @relation(fields: [stockId], references: [id])
   estado     EstadoReserva   @default(PENDIENTE)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
