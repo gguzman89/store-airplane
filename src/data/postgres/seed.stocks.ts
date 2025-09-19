@@ -5,7 +5,7 @@ import { Prisma } from "../../../generated/prisma";
 
 
 
-export const userData: Prisma.StockCreateInput[] = [
+export const stockData: Prisma.StockCreateInput[] = [
   {
     empresa: 15,
     sucursal: 1,
@@ -28,6 +28,18 @@ export const userData: Prisma.StockCreateInput[] = [
       ]
     },
   },
+  {
+    empresa: 13,
+    sucursal: 3,
+    articulo: 22,
+    cantidad: 20,
+  },
+  {
+    empresa: 7,
+    sucursal: 2,
+    articulo: 22,
+    cantidad: 11,
+  }
 ]
 
 

@@ -1,5 +1,6 @@
 import { postgres as prisma } from "./data";
 import { userData } from "./data/postgres/seed";
+import { stockData } from "./data/postgres/seed.stocks";
 
 
 
@@ -43,9 +44,9 @@ async function main() {
   // });
 
   // READ
-  const rs = await prisma.user.findMany({
-    include: { posts: true, profile: true },
-  });
+  // const rs = await prisma.user.findMany({
+  //   include: { posts: true, profile: true },
+  // });
   // const rs = await prisma.profile
   // .findUnique({ where: { id: 1 }})
   // .user()
@@ -59,14 +60,14 @@ async function main() {
   //   }
   // });
   
-  console.dir(rs, { depth: null });
+  // console.dir(rs, { depth: null });
 
   // SEED
-  // const inserts = userData.forEach(async (user) => 
-  //   await prisma.user.create({ data: user }));
+  const inserts = stockData.forEach(async (stock) => 
+    await prisma.stock.create({ data: stock }));
 
 
-  // console.log(`Inserted users records`);
+  console.log(`Inserted users records`);
   // console.log({ post });
 }
 
