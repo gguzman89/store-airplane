@@ -1,6 +1,9 @@
+import { envs } from "./config";
 import { postgres as prisma } from "./data";
 import { userData } from "./data/postgres/seed";
 import { stockData } from "./data/postgres/seed.stocks";
+import { AppRoutes } from "./presentation/routes";
+import { Server } from "./presentation/server";
 
 
 
@@ -12,6 +15,14 @@ import { stockData } from "./data/postgres/seed.stocks";
 })();
 
 async function main() {
+
+  const server = new Server({
+    port: envs.PORT,
+    routes: AppRoutes.routes,
+  })
+
+  await server.start()
+
   console.log("Hello World");
 
   // CREATE
@@ -44,13 +55,13 @@ async function main() {
   // });
 
   // READ
-  // const rs = await prisma.user.findMany({
-  //   include: { posts: true, profile: true },
+  // const rs = await prisma.stock.findMany({
+    
   // });
-  // const rs = await prisma.profile
-  // .findUnique({ where: { id: 1 }})
-  // .user()
-  // .posts();
+  // const rs = await prisma.reserva
+  // .findUnique({ where: { id: 2 }})
+  // .stock()
+  // .reservas();
   // const rs = await prisma.post.findMany({
   //   where:{
   //     OR: [
@@ -63,11 +74,11 @@ async function main() {
   // console.dir(rs, { depth: null });
 
   // SEED
-  const inserts = stockData.forEach(async (stock) => 
-    await prisma.stock.create({ data: stock }));
+  // const inserts = stockData.forEach(async (stock) => 
+  //   await prisma.stock.create({ data: stock }));
 
 
-  console.log(`Inserted users records`);
+  // console.log(`Inserted users records`);
   // console.log({ post });
 }
 

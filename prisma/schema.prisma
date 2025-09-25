@@ -52,7 +52,7 @@ model Stock {
   updatedAt DateTime  @updatedAt
   reservas  Reserva[]
 
-  @@map("stocks")
+  @@map("stock")
 }
 
 model Reserva {
@@ -71,16 +71,18 @@ model Reserva {
 }
 
 model movimiento {
-  id          Int           @id @default(autoincrement())
-  empresa     Int
-  sucursal    Int
-  articulo    Int
-  cantidad    Int
-  descripcion String?
-  categoria   TipoCategoria
-  comentario  String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id             Int           @id @default(autoincrement())
+  empresa        Int
+  sucursal       Int
+  articulo       Int
+  cantidad       Int
+  descripcion    String?
+  tipo           TipoMovimiento
+  comentario     String?
+  codOperacion   String? // ? tabla o referencia 
+  precioUnitario Int?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
   @@map("movimientos")
 }
@@ -100,8 +102,9 @@ enum EstadoReserva {
   @@map("EstadosReserva")
 }
 
-enum TipoCategoria {
-  MERCADERIA
+enum TipoMovimiento {
+  MERCADERIA_INGRESO
+  MERCADERIA_EGRESO
   ANULACION
   VENTAS
 
