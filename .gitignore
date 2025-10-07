@@ -14,6 +14,7 @@ emails/
 
 .vscode/
 .docker/
+uploads/
 
 *.sh
 
