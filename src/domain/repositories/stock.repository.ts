@@ -1,3 +1,5 @@
+import { CreateBatchTmpDTO } from "../dtos/create-batch-tmp.dto";
+import { BatchMovTmpEntity } from "../entities/batch.mov-tmp.entity";
 
 
 
@@ -6,11 +8,13 @@
 
 export abstract class StockRepository {
 
-  abstract create( createBatchTmpDTO: CreateBatchTmpDTO ): Promise<BatchEntity>;
+  abstract createStockTemporary( dtos: CreateBatchTmpDTO[], errors: string[] ): Promise<BatchMovTmpEntity>
 
-  abstract getAll(): Promise<ArticleEntity[]>;
+  // abstract create( createBatchTmpDTO: CreateBatchTmpDTO ): Promise<BatchEntity>;
+
+  // abstract getAll(): Promise<ArticleEntity[]>;
   
-  abstract findByID( id:number ): Promise<ArticleEntity>;
+  // abstract findByID( id:number ): Promise<ArticleEntity>;
   
   // abstract updateByID( updateArticleDTO:UpdateArticleDTO ): Promise<ArticleEntity>;
   

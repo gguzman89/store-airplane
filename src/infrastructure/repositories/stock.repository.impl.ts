@@ -1,4 +1,4 @@
-import { StockDatasource, StockRepository } from "../../domain";
+import { BatchMovTmpEntity, CreateBatchTmpDTO, StockDatasource, StockRepository } from "../../domain";
 
 
 
@@ -12,18 +12,23 @@ export class StockRepositoryImpl implements StockRepository {
     private readonly datasource: StockDatasource
   ) {}
 
-  create(createBatchTmpDTO: CreateBatchTmpDTO): Promise<BatchEntity> {
+  createStockTemporary( dtos: CreateBatchTmpDTO[], errors: string[] ): Promise<BatchMovTmpEntity> {
+    
+    return this.datasource.createStockTemporary( dtos, errors );
+  }
 
-    return this.datasource.create( createBatchTmpDTO );
-  }
-  getAll(): Promise<ArticleEntity[]> {
+  // create(createBatchTmpDTO: CreateBatchTmpDTO): Promise<BatchEntity> {
+
+  //   return this.datasource.create( createBatchTmpDTO );
+  // }
+  // getAll(): Promise<ArticleEntity[]> {
     
-    return this.datasource.getAll();
-  }
-  findByID(id: number): Promise<ArticleEntity> {
+  //   return this.datasource.getAll();
+  // }
+  // findByID(id: number): Promise<ArticleEntity> {
     
-    return this.datasource.findByID( id );
-  }
+  //   return this.datasource.findByID( id );
+  // }
   
 }
 
