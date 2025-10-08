@@ -7,7 +7,7 @@ SELECT
   ) AS saldo_disponible
 FROM
   (
-    stocks s
+    stock s
     LEFT JOIN (
       SELECT
         reservas.empresa,

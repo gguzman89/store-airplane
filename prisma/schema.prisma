@@ -71,20 +71,38 @@ model Reserva {
 }
 
 model movimiento {
-  id             Int           @id @default(autoincrement())
+  id             Int            @id @default(autoincrement())
   empresa        Int
   sucursal       Int
   articulo       Int
   cantidad       Int
   descripcion    String?
-  tipo           TipoMovimiento
   comentario     String?
-  codOperacion   String? // ? tabla o referencia 
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  codOperacion   Int?
   precioUnitario Int?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  tipo           TipoMovimiento
 
   @@map("movimientos")
+}
+
+model MovimientoTmp {
+  id             Int            @id @default(autoincrement())
+  empresa        Int
+  sucursal       Int
+  articulo       Int
+  cantidad       Int
+  descripcion    String?  // limit 255
+  tipo           TipoMovimiento @default(MERCADERIA_TEMPORAL)
+  comentario     String?  // limit 255
+  codOperacion   Int?
+  precioUnitario Int?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  transactionId  String
+
+  @@map("temporary_movimientos")
 }
 
 view stock_disponible {
@@ -103,10 +121,11 @@ enum EstadoReserva {
 }
 
 enum TipoMovimiento {
-  MERCADERIA_INGRESO
-  MERCADERIA_EGRESO
+  MERCADERIA_INGRESO  @map("MERCADERIA")
   ANULACION
   VENTAS
+  MERCADERIA_EGRESO
+  MERCADERIA_TEMPORAL
 
   @@map("Categorias")
 }
